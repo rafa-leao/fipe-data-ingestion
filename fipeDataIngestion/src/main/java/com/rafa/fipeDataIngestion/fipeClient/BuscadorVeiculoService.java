@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
 
 @Service
-public class TipoVeiculoService {
+public class BuscadorVeiculoService {
     private @Autowired WebClient webClient;
 
     private @Autowired KafkaTemplate<String, Veiculo> broker;
@@ -22,11 +22,11 @@ public class TipoVeiculoService {
             .retrieve()
             .bodyToMono(new ParameterizedTypeReference<List<Veiculo>>() {})
             .block();
-        this.enviaBroker(veiculos);
+        this.produzEvento(veiculos);
         return veiculos;
     }
 
-    private void enviaBroker(List<Veiculo> veiculos) {
+    private void produzEvento(List<Veiculo> veiculos) {
         veiculos.forEach(veiculo -> {
             broker.send("fipe-marcas", veiculo);
         });

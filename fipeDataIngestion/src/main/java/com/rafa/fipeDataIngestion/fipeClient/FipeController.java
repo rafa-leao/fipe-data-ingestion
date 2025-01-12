@@ -12,10 +12,10 @@ import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
 
 @RestController
 public class FipeController {
-    private @Autowired TipoVeiculoService tipoVeiculo;
+    private @Autowired BuscadorVeiculoService buscadorVeiculo;
 
     @GetMapping("/fipe/{veiculo}")
     public ResponseEntity<List<Veiculo>> buscaMarcasFipe(@PathVariable String veiculo) {
-        return ResponseEntity.ok(tipoVeiculo.busca(veiculo));
+        return ResponseEntity.ok(buscadorVeiculo.busca(veiculo));
     }
 }
