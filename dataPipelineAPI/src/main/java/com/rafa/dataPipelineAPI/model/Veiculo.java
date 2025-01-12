@@ -1,4 +1,4 @@
-package com.rafa.fipeDataIngestion.fipeClient.model;
+package com.rafa.dataPipelineAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
