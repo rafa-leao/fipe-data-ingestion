@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,11 +14,21 @@ import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
 public class TipoVeiculoService {
     private @Autowired WebClient webClient;
 
+    private @Autowired KafkaTemplate<String, Veiculo> broker;
+
     public List<Veiculo> busca(String veiculo) {
-        return webClient.get()
+        List<Veiculo> veiculos = webClient.get()
             .uri(veiculo + "/brands")
             .retrieve()
             .bodyToMono(new ParameterizedTypeReference<List<Veiculo>>() {})
-            .block();    
+            .block();
+        this.enviaBroker(veiculos);
+        return veiculos;
+    }
+
+    private void enviaBroker(List<Veiculo> veiculos) {
+        veiculos.forEach(veiculo -> {
+            broker.send("fipe-marcas", veiculo);
+        });
     }
 }
