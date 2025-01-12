@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.rafa.dataPipelineAPI.model.Veiculo;
 
 @Service
-public class BuscadorFipeService {
+public class BuscadorVeiculoService {
 	private @Autowired WebClient webClient;
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = "fipe-marcas", partitions = {
