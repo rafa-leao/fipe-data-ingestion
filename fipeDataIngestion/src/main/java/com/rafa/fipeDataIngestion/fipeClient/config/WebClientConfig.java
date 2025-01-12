@@ -1,16 +1,18 @@
 package com.rafa.fipeDataIngestion.fipeClient.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebClientConfig {
+    private @Value(value = "${fipe.url}") String fipeUrl;
 
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("https://fipe.parallelum.com.br/api/v2/")
+                .baseUrl(fipeUrl)
                 .build();
     }
 }
