@@ -16,18 +16,20 @@ public class BuscadorVeiculoService {
 
     private @Autowired KafkaTemplate<String, Veiculo> broker;
 
-    public List<Veiculo> busca(String veiculo) {
+    public List<Veiculo> busca(String tipoVeiculo) {
         List<Veiculo> veiculos = webClient.get()
-            .uri(veiculo + "/brands")
-            .retrieve()
-            .bodyToMono(new ParameterizedTypeReference<List<Veiculo>>() {})
-            .block();
-        this.produzEvento(veiculos);
+                .uri(tipoVeiculo + "/brands")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<Veiculo>>() {
+                })
+                .block();
+        this.produzEvento(veiculos, tipoVeiculo);
         return veiculos;
     }
 
-    private void produzEvento(List<Veiculo> veiculos) {
+    private void produzEvento(List<Veiculo> veiculos, String tipoVeiculo) {
         veiculos.forEach(veiculo -> {
+            veiculo.setTipo(tipoVeiculo);
             broker.send("fipe-marcas", veiculo);
         });
     }

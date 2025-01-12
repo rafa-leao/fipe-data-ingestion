@@ -1,4 +1,4 @@
-package com.rafa.dataPipelineAPI.brokerConsumer.model;
+package com.rafa.dataPipelineAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,4 +16,6 @@ public class Veiculo {
     private String code;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("tipo")
+    private String tipo;
 }
