@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "veiculos")
-public class VeiculoEntity {
+@Table(name = "marcas")
+public class MarcaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class VeiculoEntity {
     private String name;
     private String tipo;
 
-    public VeiculoEntity(String code, String name, String tipo) {
+    public MarcaEntity(String code, String name, String tipo) {
         this.code = code;
         this.name = name;
         this.tipo = tipo;

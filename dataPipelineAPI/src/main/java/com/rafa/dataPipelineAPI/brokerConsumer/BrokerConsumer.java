@@ -14,15 +14,13 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.rafa.dataPipelineAPI.model.Veiculo;
-
 @EnableKafka
 @Configuration
 public class BrokerConsumer {
         private @Value(value = "${spring.broker.server}") String serverAddress;
 
         @Bean
-        public ConsumerFactory<String, Veiculo> consumerFactory() {
+        public ConsumerFactory<String, Marca> consumerFactory() {
             Map<String, Object> props = new HashMap<>();
             props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, serverAddress);
             props.put(ConsumerConfig.GROUP_ID_CONFIG, "fipe");
@@ -33,13 +31,13 @@ public class BrokerConsumer {
             props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, JsonDeserializer.class);
             props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
             props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-            props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.rafa.dataPipelineAPI.model.Veiculo");
+            props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.rafa.dataPipelineAPI.brokerConsumer.Marca");
             return new DefaultKafkaConsumerFactory<>(props);
         }
 
         @Bean
-        public ConcurrentKafkaListenerContainerFactory<String, Veiculo> kafkaListenerContainerFactory() {
-            ConcurrentKafkaListenerContainerFactory<String, Veiculo> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        public ConcurrentKafkaListenerContainerFactory<String, Marca> kafkaListenerContainerFactory() {
+            ConcurrentKafkaListenerContainerFactory<String, Marca> factory = new ConcurrentKafkaListenerContainerFactory<>();
             factory.setConsumerFactory(consumerFactory());
             return factory;
         }   

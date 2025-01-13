@@ -1,4 +1,4 @@
-package com.rafa.dataPipelineAPI.model;
+package com.rafa.dataPipelineAPI.brokerConsumer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo {
+public class Marca {
     @JsonProperty("code")
     private String code;
     @JsonProperty("name")
