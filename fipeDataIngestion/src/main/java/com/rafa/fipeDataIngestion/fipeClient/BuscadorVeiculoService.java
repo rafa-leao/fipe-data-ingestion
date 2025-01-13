@@ -18,7 +18,7 @@ public class BuscadorVeiculoService {
 
     public List<Veiculo> busca(String tipoVeiculo) {
         List<Veiculo> veiculos = webClient.get()
-                .uri(tipoVeiculo + "/brands")
+                // .uri(tipoVeiculo + "/brands")
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<Veiculo>>() {
                 })
