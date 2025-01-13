@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.rafa.dataPipelineAPI.brokerConsumer.Marca;
-import com.rafa.dataPipelineAPI.database.MarcaEntity;
-import com.rafa.dataPipelineAPI.database.MarcaRepository;
+import com.rafa.dataPipelineAPI.database.entity.MarcaEntity;
+import com.rafa.dataPipelineAPI.database.entity.VeiculoEntity;
+import com.rafa.dataPipelineAPI.database.repository.MarcaRepository;
+import com.rafa.dataPipelineAPI.database.repository.VeiculoRepository;
+import com.rafa.dataPipelineAPI.fipeClient.model.Veiculo;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,38 +24,59 @@ import reactor.core.publisher.Mono;
 public class BuscadorMarcaService {
     private @Autowired WebClient webClient;
     private @Autowired MarcaRepository marcaRepository;
+    private @Autowired VeiculoRepository veiculoRepository;
 
     @KafkaListener(topicPartitions = @TopicPartition(topic = "fipe-marcas", partitions = {"0"}), containerFactory = "kafkaListenerContainerFactory")
     public void ouveEvento(Marca marca) {
-        this.busca(marca.getTipo(), marca.getCode())
-            .flatMapMany(marcas -> salvaMarcas(marcas, marca.getTipo()))
-            .subscribe(
-                savedMarca -> System.out.println("Marca salva: " + savedMarca),
-                error -> System.err.println("Erro ao salvar marca: " + error.getMessage())
-            );
+        salvaMarca(marca)
+                .flatMap(savedMarca -> buscaVeiculos(savedMarca)
+                        .flatMapMany(veiculos -> salvaVeiculos(veiculos, savedMarca))
+                        .then(Mono.just(savedMarca)))
+                .subscribe(
+                        savedVeiculo -> System.out.println("Veículo salvo: " + savedVeiculo),
+                        error -> System.err.println("Erro ao salvar veículo: " + error.getMessage()));
     }
 
-    private Mono<List<Marca>> busca(String tipoVeiculo, String codeMarca) {
+    private Mono<Marca> salvaMarca(Marca marca) {
+        if (marca == null || marca.getTipo() == null) {
+            System.out.println("Marca ou tipoVeiculo é nulo");
+            return Mono.empty();
+        }
+
+        MarcaEntity marcaEntity = new MarcaEntity(marca.getCode(), marca.getName(), marca.getTipo());
+
+        return Mono.fromCallable(() -> {
+            if (!marcaRepository.existsByCode(marcaEntity.getCode())) {
+                return marcaRepository.save(marcaEntity);
+            } else {
+                return marcaRepository.findByCode(marcaEntity.getCode());
+            }
+        }).map(savedEntity -> new Marca(savedEntity.getCode(), savedEntity.getName(), savedEntity.getTipo()));
+    }
+
+    private Mono<List<Veiculo>> buscaVeiculos(Marca marca) {
         return webClient.get()
-                .uri(tipoVeiculo + "/brands/" + codeMarca + "/models")
+                .uri(marca.getTipo() + "/brands/" + marca.getCode() + "/models")
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<Marca>>() {
+                .bodyToMono(new ParameterizedTypeReference<List<Veiculo>>() {
                 });
     }
 
-    private Flux<MarcaEntity> salvaMarcas(List<Marca> marcas, String tipoVeiculo) {
-        if (marcas == null || tipoVeiculo == null) {
-            System.out.println("Marcas ou tipoVeiculo é nulo");
+    private Flux<VeiculoEntity> salvaVeiculos(List<Veiculo> veiculos, Marca marca) {
+        if (veiculos == null) {
+            System.out.println("Veículos é nulo");
             return Flux.empty();
         }
 
-        List<MarcaEntity> marcaEntities = marcas.stream()
+        MarcaEntity marcaEntity = marcaRepository.findByCode(marca.getCode());
+
+        List<VeiculoEntity> veiculoEntities = veiculos.stream()
                 .filter(v -> v != null && v.getCode() != null && v.getName() != null)
-                .map(v -> new MarcaEntity(v.getCode(), v.getName(), tipoVeiculo))
+                .map(v -> new VeiculoEntity(v.getCode(), v.getName(), v.getTipo(), v.getObservation(), marcaEntity))
                 .collect(Collectors.toList());
 
-        return Flux.fromIterable(marcaEntities)
-                .filter(marcaEntity -> !marcaRepository.existsByCode(marcaEntity.getCode()))
-                .flatMap(marcaEntity -> Mono.fromCallable(() -> marcaRepository.save(marcaEntity)));
+        return Flux.fromIterable(veiculoEntities)
+                .filter(veiculoEntity -> !veiculoRepository.existsByCode(veiculoEntity.getCode()))
+                .flatMap(veiculoEntity -> Mono.fromCallable(() -> veiculoRepository.save(veiculoEntity)));
     }
 }
