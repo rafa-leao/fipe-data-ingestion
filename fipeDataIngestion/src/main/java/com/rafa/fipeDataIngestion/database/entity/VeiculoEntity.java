@@ -1,9 +1,11 @@
-package com.rafa.dataPipelineAPI.database;
+package com.rafa.fipeDataIngestion.database.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,18 +17,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "marcas")
-public class MarcaEntity {
+@Table(name = "veiculos")
+public class VeiculoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
     private String name;
-    private String tipo;
+    private String observation;
 
-    public MarcaEntity(String code, String name, String tipo) {
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private MarcaEntity marca;
+
+    public VeiculoEntity(String code, String name, String observation, MarcaEntity marca) {
         this.code = code;
         this.name = name;
-        this.tipo = tipo;
+        this.observation = observation;
+        this.marca = marca;
     }
 }

@@ -1,14 +1,16 @@
-package com.rafa.fipeDataIngestion.database;
+package com.rafa.fipeDataIngestion.database.entity;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.rafa.fipeDataIngestion.fipeClient.model.Marca;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +30,9 @@ public class MarcaEntity {
     private String code;
     private String name;
     private String tipo;
+
+    @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VeiculoEntity> veiculos;
 
     public MarcaEntity(String code, String name, String tipo) {
         this.code = code;
