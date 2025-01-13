@@ -1,5 +1,10 @@
 package com.rafa.fipeDataIngestion.database;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.rafa.fipeDataIngestion.fipeClient.model.Marca;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "veiculos")
-public class VeiculoEntity {
+@Table(name = "marcas")
+public class MarcaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,9 +29,19 @@ public class VeiculoEntity {
     private String name;
     private String tipo;
 
-    public VeiculoEntity(String code, String name, String tipo) {
+    public MarcaEntity(String code, String name, String tipo) {
         this.code = code;
         this.name = name;
         this.tipo = tipo;
+    }
+
+    public static Marca toMarca(MarcaEntity entity) {
+        return new Marca(entity.getCode(), entity.getName(), entity.getTipo());
+    }
+
+    public static List<Marca> toMarcaList(List<MarcaEntity> entities) {
+        return entities.stream()
+                .map(MarcaEntity::toMarca)
+                .collect(Collectors.toList());
     }
 }

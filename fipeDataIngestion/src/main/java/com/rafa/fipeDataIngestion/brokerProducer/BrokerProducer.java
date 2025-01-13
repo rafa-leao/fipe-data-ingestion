@@ -13,7 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
+import com.rafa.fipeDataIngestion.fipeClient.model.Marca;
 
 @Configuration
 public class BrokerProducer {
@@ -21,7 +21,7 @@ public class BrokerProducer {
 	private @Value(value = "${spring.broker.server}") String serverAddress;
 
 	@Bean
-	public ProducerFactory<String, Veiculo> producerFactory() {
+	public ProducerFactory<String, Marca> producerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serverAddress);
@@ -31,7 +31,7 @@ public class BrokerProducer {
 	}
 
 	@Bean
-	public KafkaTemplate<String, Veiculo> kafkaTemplate() {
+	public KafkaTemplate<String, Marca> kafkaTemplate() {
 		return new KafkaTemplate<>(producerFactory());
 	}
 }
