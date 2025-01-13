@@ -1,5 +1,10 @@
 package com.rafa.fipeDataIngestion.database.entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,5 +40,13 @@ public class VeiculoEntity {
         this.name = name;
         this.observation = observation;
         this.marca = marca;
+    }
+
+    public static List<Veiculo> toVeiculoList(List<VeiculoEntity> veiculoEntities) {
+
+        return veiculoEntities.stream()
+                .map(veiculoEntity -> new Veiculo(veiculoEntity.getCode(), veiculoEntity.getName(),
+                        veiculoEntity.getObservation(), veiculoEntity.getMarca().getCode()))
+                .collect(Collectors.toList());
     }
 }

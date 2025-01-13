@@ -13,17 +13,8 @@ import com.rafa.fipeDataIngestion.fipeClient.model.Marca;
 @Service
 public class BuscadorMarcaService {
     private @Autowired WebClient webClient;
-    // private @Autowired VeiculoRepository repository;
     private @Autowired KafkaTemplate<String, Marca> broker;
-    // public List<Marca> busca(String marca) {
-    // return repository.findByMarca(marca);
-    // }
 
-    // public List<String> busca() {
-    // return repository.findDistinctMarcas();
-    // }
-
-    // criar exceções para lidar com retorno
     public void gera() {
         List<String> tipos = List.of("cars", "motorcycles", "trucks");
 
