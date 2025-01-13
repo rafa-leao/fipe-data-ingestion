@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rafa.fipeDataIngestion.database.MarcaEntity;
-import com.rafa.fipeDataIngestion.database.MarcaRepository;
+import com.rafa.fipeDataIngestion.database.entity.MarcaEntity;
+import com.rafa.fipeDataIngestion.database.repository.MarcaRepository;
 import com.rafa.fipeDataIngestion.fipeClient.model.Marca;
 
 @RestController

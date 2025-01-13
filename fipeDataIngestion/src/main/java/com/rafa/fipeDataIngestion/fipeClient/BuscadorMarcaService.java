@@ -1,6 +1,5 @@
 package com.rafa.fipeDataIngestion.fipeClient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +29,11 @@ public class BuscadorMarcaService {
 
         tipos.forEach(tipoVeiculo -> {
             webClient.get()
-                    // .uri(tipoVeiculo + "/brands")
+                    .uri(tipoVeiculo + "/brands")
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<List<Marca>>() {
                     })
                     .subscribe(marcas -> {
-                        System.out.println("*********************");
-                        System.out.println(tipoVeiculo);
                         this.produzEvento(marcas, tipoVeiculo);
                     }, error -> {
                         System.err
