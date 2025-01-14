@@ -15,7 +15,7 @@ import com.rafa.fipeDataIngestion.fipeClient.interfaces.ProdutorEvento;
 import com.rafa.fipeDataIngestion.fipeClient.model.Marca;
 
 @Service
-public class BuscadorMarcaServiceImpl implements ManipuladorMarcasFIPE, ProdutorEvento {
+public class ManipuladorMarcaServiceImpl implements ManipuladorMarcasFIPE, ProdutorEvento {
     private @Autowired WebClient webClient;
     private @Autowired MarcaRepository marcaRepository;
     private @Autowired KafkaTemplate<String, Marca> broker;

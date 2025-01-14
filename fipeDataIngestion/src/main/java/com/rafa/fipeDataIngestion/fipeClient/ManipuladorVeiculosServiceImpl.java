@@ -12,7 +12,7 @@ import com.rafa.fipeDataIngestion.fipeClient.interfaces.ManipuladorVeiculosFIPE;
 import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
 
 @Service
-public class BuscadorVeiculosServiceImpl implements ManipuladorVeiculosFIPE {
+public class ManipuladorVeiculosServiceImpl implements ManipuladorVeiculosFIPE {
     private @Autowired VeiculoRepository veiculoRepository;
     
     @Override

@@ -21,28 +21,28 @@ import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
 @RestController
 @RequestMapping("/fipe")
 public class FipeController {
-    private @Autowired ManipuladorMarcasFIPE buscadorMarca;
-    private @Autowired ManipuladorVeiculosFIPE buscadorVeiculo;
+    private @Autowired ManipuladorMarcasFIPE marcaService;
+    private @Autowired ManipuladorVeiculosFIPE veiculoService;
 
     @PostMapping("/marcas")
     public ResponseEntity<String> geraMarcas() {
-        buscadorMarca.iniciaMarcas();
+        marcaService.iniciaMarcas();
         return ResponseEntity.ok("Marcas geradas com sucesso");
     }
 
     @GetMapping("/marcas")
     public ResponseEntity<List<Marca>> buscaMarcas() {
-        return ResponseEntity.ok(buscadorMarca.buscaMarcas());
+        return ResponseEntity.ok(marcaService.buscaMarcas());
     }
 
     @GetMapping("/veiculos/{marcaId}")
     public ResponseEntity<List<Veiculo>> buscaVeiculoPorMarca(@PathVariable Long marcaId) {
-        return ResponseEntity.ok(buscadorVeiculo.buscaVeiculosSalvos(marcaId));
+        return ResponseEntity.ok(veiculoService.buscaVeiculosSalvos(marcaId));
     }
 
     @PutMapping("/veiculos/{veiculoId}")
     public ResponseEntity<Veiculo> atualizaVeiculo(@PathVariable String veiculoId, @RequestBody Veiculo veiculo) {    
-        Optional<Veiculo> veiculoSalvo = buscadorVeiculo.atualizaVeiculoPorId(veiculoId, veiculo);
+        Optional<Veiculo> veiculoSalvo = veiculoService.atualizaVeiculoPorId(veiculoId, veiculo);
         if (!veiculoSalvo.isPresent()) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(veiculoSalvo.get());
