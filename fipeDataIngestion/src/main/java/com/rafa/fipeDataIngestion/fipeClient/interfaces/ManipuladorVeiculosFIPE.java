@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.rafa.fipeDataIngestion.fipeClient.model.Veiculo;
 
 public interface ManipuladorVeiculosFIPE {
-    public List<Veiculo> buscaVeiculosSalvos(Long marcaId);
+    public List<Veiculo> buscaVeiculosSalvos(String marcaCode);
 
     public Optional<Veiculo> atualizaVeiculoPorId(String veiculoId, Veiculo veiculo);
 }

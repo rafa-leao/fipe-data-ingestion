@@ -42,11 +42,11 @@ paths:
               schema:
                 type: string
 
-  /fipe/veiculos/{marcaId}:
+  /fipe/veiculos/{marcaCode}:
     get:
       summary: Busca todos os veículos de uma marca específica
       parameters:
-        - name: marcaId
+        - name: marcaCode
           in: path
           required: true
           schema:

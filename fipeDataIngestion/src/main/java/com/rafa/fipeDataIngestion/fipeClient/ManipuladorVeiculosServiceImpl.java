@@ -16,8 +16,8 @@ public class ManipuladorVeiculosServiceImpl implements ManipuladorVeiculosFIPE {
     private @Autowired VeiculoRepository veiculoRepository;
     
     @Override
-    public List<Veiculo> buscaVeiculosSalvos(Long marcaId) {
-        List<VeiculoEntity> veiculoEntities = veiculoRepository.findByMarcaId(marcaId);
+    public List<Veiculo> buscaVeiculosSalvos(String marcaCode) {
+        List<VeiculoEntity> veiculoEntities = veiculoRepository.findByMarcaCode(marcaCode);
         return VeiculoEntity.toVeiculoList(veiculoEntities);
     }
 

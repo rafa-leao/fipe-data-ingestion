@@ -35,9 +35,9 @@ public class FipeController {
         return ResponseEntity.ok(marcaService.buscaMarcas());
     }
 
-    @GetMapping("/veiculos/{marcaId}")
-    public ResponseEntity<List<Veiculo>> buscaVeiculoPorMarca(@PathVariable Long marcaId) {
-        return ResponseEntity.ok(veiculoService.buscaVeiculosSalvos(marcaId));
+    @GetMapping("/veiculos/{marcaCode}")
+    public ResponseEntity<List<Veiculo>> buscaVeiculoPorMarca(@PathVariable String marcaCode) {
+        return ResponseEntity.ok(veiculoService.buscaVeiculosSalvos(marcaCode));
     }
 
     @PutMapping("/veiculos/{veiculoId}")

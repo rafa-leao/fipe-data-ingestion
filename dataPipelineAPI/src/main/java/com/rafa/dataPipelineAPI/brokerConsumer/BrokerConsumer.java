@@ -33,7 +33,7 @@ public class BrokerConsumer {
             props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, JsonDeserializer.class);
             props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
             props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-            props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.rafa.dataPipelineAPI.brokerConsumer.Marca");
+            props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.rafa.dataPipelineAPI.fipeClient.model.Marca");
             return new DefaultKafkaConsumerFactory<>(props);
         }
 

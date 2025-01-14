@@ -13,7 +13,7 @@ public interface VeiculoRepository extends JpaRepository<VeiculoEntity, Long> {
     
     boolean existsByCode(String code);
 
-    List<VeiculoEntity> findByMarcaId(Long marcaId);
+    List<VeiculoEntity> findByMarcaCode(String marcaCode);
 
     Optional<VeiculoEntity> findByCode(String code);
 }

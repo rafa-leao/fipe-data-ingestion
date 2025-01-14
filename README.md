@@ -26,7 +26,7 @@ Este projeto consiste em duas APIs Spring Boot que trabalham juntas para ingerir
 
 - `POST /fipe/marcas`: Inicia a carga inicial das marcas.
 - `GET /fipe/marcas`: Busca todas as marcas armazenadas.
-- `GET /fipe/veiculos/{marcaId}`: Busca todos os veículos de uma marca específica.
+- `GET /fipe/veiculos/{marcaCode}`: Busca todos os veículos de uma marca específica.
 - `PUT /fipe/veiculos/{veiculoId}`: Atualiza os dados de um veículo específico.
 
 ### Requests curl
@@ -38,8 +38,8 @@ Este projeto consiste em duas APIs Spring Boot que trabalham juntas para ingerir
 - `GET /fipe/marcas`
     - `curl http://localhost:8082/fipe/marcas`
 
-- `GET /fipe/veiculos/{marcaId}`
-    - `curl http://localhost:8082/fipe/veiculos/{marcaId}`
+- `GET /fipe/veiculos/{marcaCode}`
+    - `curl http://localhost:8082/fipe/veiculos/{marcaCode}`
 
 - `PUT /fipe/veiculos/{veiculoId}`
     ```sh
