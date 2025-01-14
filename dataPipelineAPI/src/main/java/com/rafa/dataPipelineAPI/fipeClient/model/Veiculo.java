@@ -1,4 +1,4 @@
-package com.rafa.dataPipelineAPI.model;
+package com.rafa.dataPipelineAPI.fipeClient.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,4 +18,6 @@ public class Veiculo {
     private String name;
     @JsonProperty("tipo")
     private String tipo;
+    @JsonProperty("observation")
+    private String observation;
 }

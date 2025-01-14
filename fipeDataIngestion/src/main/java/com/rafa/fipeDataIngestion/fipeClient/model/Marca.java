@@ -11,13 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Veiculo {
+public class Marca {
     @JsonProperty("code")
     private String code;
     @JsonProperty("name")
     private String name;
     @JsonProperty("tipo")
     private String tipo;
-    @JsonProperty("observation")
-    private String observation;
 }
