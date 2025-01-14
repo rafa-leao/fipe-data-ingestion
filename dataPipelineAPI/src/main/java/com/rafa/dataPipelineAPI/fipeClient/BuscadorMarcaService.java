@@ -10,11 +10,11 @@ import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.rafa.dataPipelineAPI.brokerConsumer.Marca;
 import com.rafa.dataPipelineAPI.database.entity.MarcaEntity;
 import com.rafa.dataPipelineAPI.database.entity.VeiculoEntity;
 import com.rafa.dataPipelineAPI.database.repository.MarcaRepository;
 import com.rafa.dataPipelineAPI.database.repository.VeiculoRepository;
+import com.rafa.dataPipelineAPI.fipeClient.model.Marca;
 import com.rafa.dataPipelineAPI.fipeClient.model.Veiculo;
 
 import reactor.core.publisher.Flux;

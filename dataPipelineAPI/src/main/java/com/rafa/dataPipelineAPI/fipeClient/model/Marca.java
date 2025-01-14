@@ -1,4 +1,4 @@
-package com.rafa.dataPipelineAPI.brokerConsumer;
+package com.rafa.dataPipelineAPI.fipeClient.model;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -3,7 +3,7 @@ package com.rafa.dataPipelineAPI.database.entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.rafa.dataPipelineAPI.brokerConsumer.Marca;
+import com.rafa.dataPipelineAPI.fipeClient.model.Marca;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

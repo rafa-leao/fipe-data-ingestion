@@ -14,6 +14,8 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import com.rafa.dataPipelineAPI.fipeClient.model.Marca;
+
 @EnableKafka
 @Configuration
 public class BrokerConsumer {
