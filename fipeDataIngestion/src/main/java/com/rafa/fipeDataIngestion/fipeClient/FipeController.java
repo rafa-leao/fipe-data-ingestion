@@ -41,10 +41,10 @@ public class FipeController {
     }
 
     @PutMapping("/veiculos/{veiculoId}")
-    public ResponseEntity<String> atualizaVeiculo(@PathVariable String veiculoId, @RequestBody Veiculo veiculo) {    
-        Optional<Veiculo> veiculoSalvo = buscadorVeiculo.buscaVeiculoPorId(veiculoId, veiculo);
+    public ResponseEntity<Veiculo> atualizaVeiculo(@PathVariable String veiculoId, @RequestBody Veiculo veiculo) {    
+        Optional<Veiculo> veiculoSalvo = buscadorVeiculo.atualizaVeiculoPorId(veiculoId, veiculo);
         if (!veiculoSalvo.isPresent()) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok("Veículo atualizado com sucesso");
+        return ResponseEntity.ok(veiculoSalvo.get());
     }
 }

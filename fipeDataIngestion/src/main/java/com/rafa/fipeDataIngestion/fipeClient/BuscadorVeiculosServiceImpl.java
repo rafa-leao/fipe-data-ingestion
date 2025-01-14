@@ -22,7 +22,7 @@ public class BuscadorVeiculosServiceImpl implements ManipuladorVeiculosFIPE {
     }
 
     @Override
-    public Optional<Veiculo> buscaVeiculoPorId(String veiculoId, Veiculo veiculo) {
+    public Optional<Veiculo> atualizaVeiculoPorId(String veiculoId, Veiculo veiculo) {
         Optional<VeiculoEntity> veiculoSalvo = veiculoRepository.findByCode(veiculoId);
         if (!veiculoSalvo.isPresent())
             return Optional.empty();
