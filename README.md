@@ -4,8 +4,8 @@ Este projeto consiste em duas APIs Spring Boot que trabalham juntas para ingerir
 
 ## Estrutura do Projeto
 
+- `fipeDataIngestion`: Inicia carga inicial de marcas e os envia para o Broker Kafka.
 - `dataPipelineAPI`: Consome eventos Kafka e busca dados de veículos no serviço FIPE.
-- `fipeDataIngestion`: Iniciaa a carga inicial de marcas e os envia para o Broker Kafka.
 
 ## Pré-requisitos
 
@@ -29,7 +29,7 @@ Este projeto consiste em duas APIs Spring Boot que trabalham juntas para ingerir
 - `GET /fipe/veiculos/{marcaId}`: Busca todos os veículos de uma marca específica.
 - `PUT /fipe/veiculos/{veiculoId}`: Atualiza os dados de um veículo específico.
 
-### Requests com curl
+### Requests curl
 
 
 - `POST /fipe/marcas`
